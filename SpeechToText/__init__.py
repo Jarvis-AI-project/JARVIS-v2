@@ -16,7 +16,7 @@ def speech_to_text():
         else:
             return {'transcription': r.recognize_google(audio), 'confidence': 0.0}
 
-    except sr.UnknownValueError() as e:
+    except sr.UnknownValueError:
         print(e)
         return {'type': 'Error', 'data': 'Understanding Audio Error'}
 
@@ -24,7 +24,7 @@ def speech_to_text():
         print(e)
         return {'type': 'Error', 'data': 'Connection Error'}
 
-    except sr.WaitTimeoutError() as e:
+    except sr.WaitTimeoutError as e:
         print(e)
         return {'type': 'Error', 'data': 'Listning Timed Out While Waiting For Phrase to Start'}
 
