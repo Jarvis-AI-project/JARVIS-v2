@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import time
 
 
 def speech_to_text():
@@ -7,20 +8,25 @@ def speech_to_text():
         r = sr.Recognizer()
         with sr.Microphone() as audio_stream:
             print("Engine Listening...")
+            time_start = time.time()
             audio = r.listen(source=audio_stream,
                              timeout=None,
                              phrase_time_limit=None,
                              snowboy_configuration=None)
+            time_end2 = time.time()
             print('Processing...')
 
         # recognize speech using Google Speech Recognition
         output = r.recognize_google(audio, language='en-US', show_all=True)
+        time_end = time.time()
+        print('Time passed in processng: {}'.format(time_end2-time_start))
+        print('Total time passed : {}'.format(time_end-time_start))
 
-        if output !=[]:
+        if output != []:
             return {'text': output['alternative'][0]['transcript'],
                     'confidence': output['alternative'][0]['confidence']}
         elif output == []:
-            return {'transcription': output, 'confidence': 0.0}
+            return {'text': output, 'confidence': 0.0}
         else:
             return {'type': 'Error', 'data': 'Unknown Error in Google Speech Recogition'}
 
