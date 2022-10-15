@@ -16,7 +16,7 @@ def speech_to_text():
         else:
             return {'transcription': r.recognize_google(audio), 'confidence': 0.0}
 
-    except sr.UnknownValueError:
+    except sr.UnknownValueError as e:
         print(e)
         return {'type': 'Error', 'data': 'Understanding Audio Error'}
 
