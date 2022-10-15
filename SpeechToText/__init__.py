@@ -7,14 +7,19 @@ def speech_to_text():
         r = sr.Recognizer()
         with sr.Microphone() as source:
             print("Engine Listening...")
-            audio = r.listen(source, timeout=6)
-
+            audio = r.listen(source, timeout=None, phrase_time_limit=None, snowboy_configuration=None)
+            print('Processing...')
         # recognize speech using Google Speech Recognition
-        if r.recognize_google(audio, show_all=True) is not None:
-            return {'text': r.recognize_google(audio),
-                    'confidence': r.recognize_google(audio, show_all=True)['alternative'][0]['confidence']}
+
+        output = r.recognize_google(audio, language='en-US', show_all=True)
+
+        if output is not None:
+            return {'text': output,
+                    'confidence': output['alternative'][0]['confidence']}
+        elif output is None:
+            return {'transcription': output, 'confidence': 0.0}
         else:
-            return {'transcription': r.recognize_google(audio), 'confidence': 0.0}
+            return {'type': 'Error', 'data': 'Unknown Error in Google Speech Recogition'}
 
     except sr.UnknownValueError as e:
         print(e)
