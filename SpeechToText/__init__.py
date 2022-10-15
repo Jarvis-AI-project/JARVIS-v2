@@ -19,7 +19,7 @@ def speech_to_text():
         # recognize speech using Google Speech Recognition
         output = r.recognize_google(audio, language='en-US', show_all=True)
         time_end = time.time()
-        print('Time passed in processng: {}'.format(time_end2-time_start))
+        print('Time passed in Listenig: {}'.format(time_end2-time_start))
         print('Total time passed : {}'.format(time_end-time_start))
 
         if output != []:
