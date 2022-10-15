@@ -59,7 +59,7 @@ def wake_word_detection(model):
                     return True
 
             except KeyboardInterrupt:
-                print('You pressed ctrl C')
+                # print('You pressed ctrl C')
                 return 'KeyboardInterrupt'
     except:
         print('ERROR in hotword detection')
