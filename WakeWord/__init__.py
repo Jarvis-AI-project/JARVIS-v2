@@ -17,12 +17,10 @@ access_keys = [
 
 def wake_word_detection(model):
 
-    print('hotword detection started')
-
     try:
         try:
             porcupine = pvporcupine.create(
-                access_key='pXwEvAXJABqQf8hMoHFFGcsgkabxMPQMttKsdeyXRxEAL6r0VTbf9w==',
+                access_key=access_keys[0],
                 keyword_paths=model
             )
         except:
@@ -42,6 +40,7 @@ def wake_word_detection(model):
                 except:
                     print('could not connect to hotword detection server number 3 \n')
                     print('hotword detection failed \n')
+        print('hotword detection started')
         paud = pyaudio.PyAudio()
         audio_stream = paud.open(rate=porcupine.sample_rate,
                                  channels=1,
