@@ -1,14 +1,17 @@
+# pip install azure-cognitiveservices-speech
 import azure.cognitiveservices.speech as speechsdk
 
 
-def recognize_from_mic():
-
+def speech_to_text():
     speech_config = speechsdk.SpeechConfig(subscription="95aa2e3713c5421683334dd5decb6fff", region="centralindia")
     speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config)
 
-    print("Speak into your microphone.")
+    print("Listining...")
     result = speech_recognizer.recognize_once_async().get()
-    print(result.text)
+    return {'text': result.text,
+            'type':result.reason}
 
 
-recognize_from_mic()
+if __name__ == '__main__':
+    out = speech_to_text()
+    print(out)
