@@ -16,10 +16,10 @@ def speech_to_text():
         # recognize speech using Google Speech Recognition
         output = r.recognize_google(audio, language='en-US', show_all=True)
 
-        if output is not None:
+        if output !=[]:
             return {'text': output['alternative'][0]['transcript'],
                     'confidence': output['alternative'][0]['confidence']}
-        elif output is None:
+        elif output == []:
             return {'transcription': output, 'confidence': 0.0}
         else:
             return {'type': 'Error', 'data': 'Unknown Error in Google Speech Recogition'}
