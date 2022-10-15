@@ -10,6 +10,5 @@ while True:
         else:
             WakeWord.reset()
 
-    except Exception as e:
-        print('Error is:' + e)
-        WakeWord.reset()
+    except:
+        print('Unknown Error')

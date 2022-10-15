@@ -2,7 +2,6 @@ import speech_recognition as sr
 
 
 def speech_to_text():
-
     try:
         # obtain audio from the microphone
         r = sr.Recognizer()
