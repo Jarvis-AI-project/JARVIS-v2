@@ -5,7 +5,7 @@ def speech_to_text():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Engine Listening...")
-        audio = r.listen(source)
+        audio = r.listen(source, timeout=6)
 
     # recognize speech using Google Speech Recognition
     try:
@@ -16,10 +16,11 @@ def speech_to_text():
             return {'text': r.recognize_google(audio), 'confidence': 0.0}
 
     except sr.UnknownValueError:
+        print("\nCould not Understand Audio : {0}".format(e))
         return {'type': 'Error', 'data': 'Understanding Audio Error'}
 
     except sr.RequestError as e:
-        print("\nCould not request results from Speech Recognition service; {0}".format(e))
+        print("\nCould not request results from Speech Recognition service : {0}".format(e))
         return {'type': 'Error', 'data': 'Connection Error'}
     
 if __name__ == "__main__":

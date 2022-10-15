@@ -4,7 +4,6 @@
 import struct
 import pyaudio
 import pvporcupine
-import multiprocessing as mp
 
 porcupine = None
 paud = None
@@ -55,12 +54,13 @@ def wake_word_detection(model):
             keyword_index = porcupine.process(keyword)
             if keyword_index >= 0:
                 print("hotword detected", keyword_index)
-                break
+                return True
 
     except:
         print('ERROR in hotword detection')
+        return False
 
-def close_previous_porcupine():
+def reset():
     if porcupine is not None:
         porcupine.delete()
     if audio_stream is not None:
