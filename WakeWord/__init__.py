@@ -15,6 +15,7 @@ access_keys = [
     'MMvgSaJ5k6iELWtuyxz6R0nnz7exBVT56piX6Qq9cQViCVEK2OsbNQ==',
     'pXwEvAXJABqQf8hMoHFFGcsgkabxMPQMttKsdeyXRxEAL6r0VTbf9w==']
 
+
 def wake_word_detection(model):
 
     print('hotword detection started')
@@ -43,10 +44,10 @@ def wake_word_detection(model):
                     print('could not connect to hotword detection server number 3 \n')
                     print('hotword detection failed \n')
         paud = pyaudio.PyAudio()
-        audio_stream = paud.open(rate=porcupine.sample_rate, 
+        audio_stream = paud.open(rate=porcupine.sample_rate,
                                  channels=1,
-                                 format=pyaudio.paInt16, 
-                                 input=True, 
+                                 format=pyaudio.paInt16,
+                                 input=True,
                                  frames_per_buffer=porcupine.frame_length)
         while True:
             keyword = audio_stream.read(porcupine.frame_length)
@@ -55,19 +56,19 @@ def wake_word_detection(model):
             if keyword_index >= 0:
                 print("hotword detected", keyword_index)
                 break
-    
+
     except:
-        print('ERROR')
+        print('ERROR in hotword detection')
 
-    finally:
-        if porcupine is not None:
-            porcupine.delete()
-        if audio_stream is not None:
-            audio_stream.close()
-        if paud is not None:
-            paud.terminate()
-
+def close_previous_porcupine():
+    if porcupine is not None:
+        porcupine.delete()
+    if audio_stream is not None:
+        audio_stream.close()
+    if paud is not None:
+        paud.terminate()
 
 if __name__ == '__main__':
-    
-        wake_word_detection(model=['jarvis_windows.ppn', 'hey-jarvis_windows.ppn', 'hi-jarvis_en_windows.ppn'])
+
+    wake_word_detection(
+        model=['jarvis_windows.ppn', 'hey-jarvis_windows.ppn', 'hi-jarvis_en_windows.ppn'])

@@ -1,6 +1,4 @@
 import speech_recognition as sr
-import winsound
-import multiprocessing as mp
 
 def speech_to_text():
     # obtain audio from the microphone
