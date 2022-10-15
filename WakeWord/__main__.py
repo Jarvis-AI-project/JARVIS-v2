@@ -1,4 +1,4 @@
-import WakeWord
+import __init__ as WakeWord
 import winsound
 while True:
     try:
