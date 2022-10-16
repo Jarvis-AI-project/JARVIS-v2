@@ -1,3 +1,5 @@
+#https://learndataanalysis.org/source-code-getting-started-with-microsoft-azure-face-api-in-python/
+
 import os
 import io
 import json
@@ -7,33 +9,29 @@ import requests
 from PIL import Image, ImageDraw, ImageFont
 
 """
-Example 2. Detect faces landmarks from an image (from a local file)
+Example 1. Detect faces from an image (from the web)
 """
 
 credential = json.load(open('AzureCloudKeys.json'))
 API_KEY = credential['API_KEY']
 ENDPOINT = credential['ENDPOINT']
+
 face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(API_KEY))
+image_url = 'https://lh3.googleusercontent.com/pw/AM-JKLWihuQfkjmAu7AG5xRaoCnB9PI5VI6dZGcXhqVtIMk6L9swLa0M8WziWt0uVOTjTEY03WKKzAppzFt62mbpYT9C5x5n-gI0S8TmfOzUOg2X6CceLspAVqWSKyXN96r7C6YNHSGXUw7xm1wK2utNAAjNXg=w2249-h1686-no?authuser=0'
 
-img_file = open('photo.jpg', 'rb')
-
-response_detected_faces = face_client.face.detect_with_stream(
-    image=img_file,
+response_detected_faces = face_client.face.detect_with_url(
+    image_url,
     detection_model='detection_03',
-    recognition_model='recognition_04',
-    return_face_landmarks=True
-)
+    recognition_model='recognition_04')
+print(response_detected_faces)
 
 if not response_detected_faces:
     raise Exception('No face detected')
 
 print('Number of people detected: {0}'.format(len(response_detected_faces)))
 
-print(vars(response_detected_faces[0]))
-print(vars(response_detected_faces[0].face_landmarks).keys())
-print(response_detected_faces[0].face_landmarks.mouth_left)
-
-img = Image.open(img_file)
+response_image = requests.get(image_url)
+img = Image.open(io.BytesIO(response_image.content))
 draw = ImageDraw.Draw(img)
 
 for face in response_detected_faces:
@@ -43,17 +41,5 @@ for face in response_detected_faces:
     right = rect.width + left
     bottom = rect.height + top
     draw.rectangle(((left, top), (right, bottom)), outline='green', width=5)
-
-    # mark the noise tip
-    x = face.face_landmarks.nose_tip.x
-    y = face.face_landmarks.nose_tip.y
-    draw.rectangle(((x, y), (x, y)), outline='white', width=7)
-
-    # draw the bounding box around the mouth
-    mouth_left = face.face_landmarks.mouth_left.x, face.face_landmarks.mouth_left.y
-    mouth_right = face.face_landmarks.mouth_right.x, face.face_landmarks.mouth_right.y
-    lip_bottom = face.face_landmarks.under_lip_bottom.x, face.face_landmarks.under_lip_bottom.y
-    draw.rectangle(
-        (mouth_left, (mouth_right[0], lip_bottom[1])), outline='yellow', width=2)
-
 img.show()
+img.save('test.jpg')
