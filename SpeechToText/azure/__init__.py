@@ -8,8 +8,10 @@ def speech_to_text():
 
     print("Listining...")
     result = speech_recognizer.recognize_once_async().get()
-    return {'text': result.text,
-            'type':result.reason}
+
+    return {'transcription': result.text,
+            'type':result.reason,
+            'confidence':'to be implimented'}
 
 
 if __name__ == '__main__':
