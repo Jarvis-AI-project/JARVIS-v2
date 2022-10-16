@@ -17,29 +17,27 @@ API_KEY = credential['API_KEY']
 ENDPOINT = credential['ENDPOINT']
 
 face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(API_KEY))
-image_url = 'https://lh3.googleusercontent.com/pw/AM-JKLWihuQfkjmAu7AG5xRaoCnB9PI5VI6dZGcXhqVtIMk6L9swLa0M8WziWt0uVOTjTEY03WKKzAppzFt62mbpYT9C5x5n-gI0S8TmfOzUOg2X6CceLspAVqWSKyXN96r7C6YNHSGXUw7xm1wK2utNAAjNXg=w2249-h1686-no?authuser=0'
+image_url = r'https://lh3.googleusercontent.com/pw/AM-JKLWihuQfkjmAu7AG5xRaoCnB9PI5VI6dZGcXhqVtIMk6L9swLa0M8WziWt0uVOTjTEY03WKKzAppzFt62mbpYT9C5x5n-gI0S8TmfOzUOg2X6CceLspAVqWSKyXN96r7C6YNHSGXUw7xm1wK2utNAAjNXg=w2249-h1686-no?authuser=0'
 
-response_detected_faces = face_client.face.detect_with_url(
-    image_url,
-    detection_model='detection_03',
-    recognition_model='recognition_04')
-print(response_detected_faces)
+response_detected_faces = face_client.face.detect_with_url(url=image_url, detection_model='detection_03',recognition_model='recognition_04')
 
-if not response_detected_faces:
-    raise Exception('No face detected')
+# print(response_detected_faces)
 
-print('Number of people detected: {0}'.format(len(response_detected_faces)))
+# if not response_detected_faces:
+#     raise Exception('No face detected')
 
-response_image = requests.get(image_url)
-img = Image.open(io.BytesIO(response_image.content))
-draw = ImageDraw.Draw(img)
+# print('Number of people detected: {0}'.format(len(response_detected_faces)))
 
-for face in response_detected_faces:
-    rect = face.face_rectangle
-    left = rect.left
-    top = rect.top
-    right = rect.width + left
-    bottom = rect.height + top
-    draw.rectangle(((left, top), (right, bottom)), outline='green', width=5)
-img.show()
-img.save('test.jpg')
+# response_image = requests.get(image_url)
+# img = Image.open(io.BytesIO(response_image.content))
+# draw = ImageDraw.Draw(img)
+
+# for face in response_detected_faces:
+#     rect = face.face_rectangle
+#     left = rect.left
+#     top = rect.top
+#     right = rect.width + left
+#     bottom = rect.height + top
+#     draw.rectangle(((left, top), (right, bottom)), outline='green', width=5)
+# img.show()
+# img.save('test.jpg')
