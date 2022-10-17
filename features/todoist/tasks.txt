@@ -592,7 +592,7 @@ Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, co
 
 Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='present yourself', created_at='2022-10-09T10:15:53.644413Z', creator_id='37026392', description='', due=None, id='6245614534', labels=[], order=3, parent_id=None, priority=1, project_id='2300111701', section_id='103419178', url='https://todoist.com/showTask?id=6245614534', sync_id=None)
 
-Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='alphabets', created_at='2022-10-09T10:18:48.556314Z', creator_id='37026392', description="[LEARN FRENCH ALPHABET (A,B,C) PRONUNCIATION | L'ALPHABET EN FRANÇAIS](https://youtu.be/x6_il7MCdzI)", due=None, id='6245618668', labels=[], order=4, parent_id=None, priority=1, project_id='2300111701', section_id='103419178', url='https://todoist.com/showTask?id=6245618668', sync_id=None)
+Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='alphabets', created_at='2022-10-09T10:18:48.556314Z', creator_id='37026392', description="[LEARN FRENCH ALPHABET (A,B,C) PRONUNCIATION | L'ALPHABET EN FRANï¿½AIS](https://youtu.be/x6_il7MCdzI)", due=None, id='6245618668', labels=[], order=4, parent_id=None, priority=1, project_id='2300111701', section_id='103419178', url='https://todoist.com/showTask?id=6245618668', sync_id=None)
 
 Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='CALLS', created_at='2022-10-15T07:07:41.138473Z', creator_id='37026392', description='', due=Due(date='2022-10-23', is_recurring=False, string='23 Oct', datetime=None, timezone=None), id='6263552399', labels=[], order=37, parent_id=None, priority=1, project_id='2280934517', section_id=None, url='https://todoist.com/showTask?id=6263552399', sync_id=None)
 
@@ -609,4 +609,3 @@ Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, co
 Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='KAINTURA', created_at='2022-10-15T07:08:33.362513Z', creator_id='37026392', description='', due=None, id='6263553483', labels=[], order=43, parent_id='6263552399', priority=1, project_id='2280934517', section_id=None, url='https://todoist.com/showTask?id=6263553483', sync_id=None)
 
 Task(assignee_id=None, assigner_id=None, comment_count=0, is_completed=False, content='YADAV', created_at='2022-10-15T07:09:04.672167Z', creator_id='37026392', description='', due=None, id='6263554106', labels=[], order=44, parent_id='6263552399', priority=1, project_id='2280934517', section_id=None, url='https://todoist.com/showTask?id=6263554106', sync_id=None)
-
