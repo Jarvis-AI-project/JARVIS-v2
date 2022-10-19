@@ -4,4 +4,9 @@ api = TodoistAPI(api_token)
 
 for task in api.get_tasks():
     print(task)
-     
+    break
+print('\n\n')
+for project in api.get_projects():
+    print(project)
+
+# print(api.get_tasks('6162617675'))
