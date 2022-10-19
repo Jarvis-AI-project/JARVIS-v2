@@ -45,7 +45,8 @@ def speech_to_text():
 
 if __name__ == "__main__":
     while True:
-        speech_to_text()
+        print (speech_to_text())
+        
 
 
 # output format
