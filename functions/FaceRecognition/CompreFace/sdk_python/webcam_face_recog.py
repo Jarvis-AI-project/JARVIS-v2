@@ -27,7 +27,7 @@ def parseArguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--api-key", help="CompreFace recognition service API key",
-                        type=str, default='00000000-0000-0000-0000-000000000002')
+                        type=str, default='85b979c0-5b59-4112-a798-8092053041ca')
     parser.add_argument("--host", help="CompreFace host",
                         type=str, default='http://localhost')
     parser.add_argument("--port", help="CompreFace port",
