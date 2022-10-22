@@ -18,29 +18,15 @@ access_keys = [
 def wake_word_detection(model):
 
     try:
-        try:
-            porcupine = pvporcupine.create(
-                access_key=access_keys[0],
-                keyword_paths=model
-            )
-        except:
-            print('could not connect to hotword detection server number 1')
+        for key in access_keys:
             try:
                 porcupine = pvporcupine.create(
-                    access_key=access_keys[1],
-                    keyword_paths=model
-                )
-            except:
-                print('could not connect to hotword detection server number 2')
-                try:
-                    porcupine = pvporcupine.create(
-                        access_key=access_keys[2],
-                        keyword_paths=model
-                    )
-                except:
-                    print('could not connect to hotword detection server number 3 \n')
-                    print('hotword detection failed \n')
-                    return False
+                    access_key=key,
+                    keyword_paths=model)
+                break
+            except Exception as e:
+                print('Could not connect by key: ' + key)
+                print(e)
 
         print('hotword detection started')
         paud = pyaudio.PyAudio()
@@ -61,8 +47,9 @@ def wake_word_detection(model):
             except KeyboardInterrupt:
                 print('You pressed ctrl+C')
                 return 'KeyboardInterrupt'
-    except:
+    except Exception as e:
         print('ERROR in hotword detection')
+        print(e)
         return False
 
 def reset():
