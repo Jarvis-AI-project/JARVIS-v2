@@ -1,21 +1,5 @@
 {
-    "project_name": {
-        "task_id":{
-            "priority":"1",
-            "content":"task1",
-            "description":"description1",
-            "label":"label1",
-            "due_date":"2019-01-01"
-        },
-        "task_id2":{
-            "priority":"1",
-            "content":"task2",
-            "description":"description2",
-            "label":"label2",
-            "due_date":"2019-01-01"
-        }
-    },
-    "project_name2": {
+    "project_name:section_name": {
         "task_id":{
             "priority":"1",
             "content":"task1",

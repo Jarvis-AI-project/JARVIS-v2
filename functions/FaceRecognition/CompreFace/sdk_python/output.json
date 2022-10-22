@@ -1,0 +1,49 @@
+{
+ "result": [
+  {
+   "box": {
+    "probability": 0.99999,
+    "x_max": 1186,
+    "y_max": 354,
+    "x_min": 933,
+    "y_min": 107
+   },
+   "subjects": [
+    {
+     "subject": "Dhruv",
+     "similarity": 0.91963
+    }
+   ]
+  },
+  {
+   "box": {
+    "probability": 0.99998,
+    "x_max": 937,
+    "y_max": 485,
+    "x_min": 675,
+    "y_min": 206
+   },
+   "subjects": [
+    {
+     "subject": "Dhruv",
+     "similarity": 0.48033
+    }
+   ]
+  },
+  {
+   "box": {
+    "probability": 0.99983,
+    "x_max": 553,
+    "y_max": 447,
+    "x_min": 198,
+    "y_min": 82
+   },
+   "subjects": [
+    {
+     "subject": "Devasheesh Mishra",
+     "similarity": 0.49696
+    }
+   ]
+  }
+ ]
+}
