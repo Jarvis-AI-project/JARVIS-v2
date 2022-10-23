@@ -14,5 +14,6 @@ for voice in voices:
 
 # Changing index, changes voices. o
 engine.setProperty('voice', voices[2].id)
+engine.setProperty('rate', 150)    # Speed percent (can go over 100)
 engine.say("hello, sir i am your voice assistant")
 engine.runAndWait()
