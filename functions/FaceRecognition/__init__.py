@@ -10,7 +10,7 @@ def FaceID():
 
     #SERVER - REMOTE
     host = input('Enter the host: ')
-    api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', '8000'
+    api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', ''
 
     # LOCALHOST
     # api_key, host, port = '85b979c0-5b59-4112-a798-8092053041ca', 'http://localhost', '8000'
