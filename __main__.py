@@ -3,7 +3,7 @@ import SpeechToText.azure as STT
 import winsound
 import functions.DateTime.time as time
 
-#verification
+# verification
 import functions.FaceRecognition as FaceID
 if FaceID.FaceID() == True:
     print("FaceID: Verified")
@@ -21,13 +21,11 @@ while True:
             print(output_dict)
             if output_dict['transcription'] != '':
                 print('Analysing...')
-                #--------features here------
-                
+                # --------features here------
 
-                
         elif wake == False:
             WakeWord.reset()
-        
+
         elif wake == 'KeyboardInterrupt':
             break
 

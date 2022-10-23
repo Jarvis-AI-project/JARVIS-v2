@@ -2,6 +2,7 @@ import cv2
 import time
 from threading import Thread
 from compreface import CompreFace
+import functions.FaceRecognition.get_host as get_host
 
 
 def FaceID():
@@ -9,7 +10,11 @@ def FaceID():
     # api_key, host, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', 'http://192.168.1.7', 8080
 
     #SERVER - REMOTE
-    host = input("Enter the ngrok host: ")
+    hostt = get_host.get_host()
+    if hostt != False:
+        host = hostt
+    else:
+        return False
     api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', ''
 
     # LOCALHOST
