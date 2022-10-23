@@ -4,16 +4,18 @@ from threading import Thread
 from compreface import CompreFace
 
 def FaceID():
-    #SERVER
-    api_key = 'd742b38d-d659-404d-bde4-db41c67a50dd'
-    host = 'http://192.168.1.7'
+    #SERVER -LOCAL
+    # api_key, host, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', 'http://192.168.1.7', 8080
+
+    #SERVER - REMOTE
+    host = '193.161.193.99'
+    api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', '8000'
 
     #LOCALHOST
-    # api_key = '85b979c0-5b59-4112-a798-8092053041ca'
-    # host = 'http://localhost'
+    # api_key, host, port = '85b979c0-5b59-4112-a798-8092053041ca', 'http://localhost', '8000'
 
 
-    port = '8000'
+    
 
     try:
         video_stream = cv2.VideoCapture(0)
@@ -38,14 +40,15 @@ def FaceID():
             results = data.get('result')
             
             for result in results if results != None else []:
-                if result['subjects'][0]['subject'] == 'Devasheesh' or result['subjects'][0]['subject'] == 'Dhruv' and result['subjects'][0]['similarity'] > 0.98:
+                if (result['subjects'][0]['subject'] == 'Devasheesh' or result['subjects'][0]['subject'] == 'Dhruv') and result['subjects'][0]['similarity'] >= 0.98:
                     print('FaceID Person: {}'.format(result['subjects'][0]['subject']))
                     print('FaceID Similarity: {}'.format(result['subjects'][0]['similarity']))
                     print('FaceID Execution Time: {}'.format(result['execution_time']))
                     video_stream.release()
                     cv2.destroyAllWindows()
                     return True
-
+                else:
+                    print('Unknown Person')
 
             #cv2.imshow('FaceID Verification', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
