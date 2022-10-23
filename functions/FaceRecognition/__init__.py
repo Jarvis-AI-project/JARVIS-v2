@@ -8,8 +8,8 @@ def FaceID():
     # api_key, host, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', 'http://192.168.1.7', 8080
 
     #SERVER - REMOTE
-    host = '193.161.193.99'
-    api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', '8000'
+    host = 'https://a4b0-103-212-159-10.in.ngrok.io'
+    api_key, port = 'd742b38d-d659-404d-bde4-db41c67a50dd', ''
 
     #LOCALHOST
     # api_key, host, port = '85b979c0-5b59-4112-a798-8092053041ca', 'http://localhost', '8000'
