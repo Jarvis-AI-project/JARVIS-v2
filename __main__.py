@@ -2,6 +2,8 @@ import functions.WakeWord as WakeWord
 import functions.SpeechToText.azure as STT
 import winsound
 import features.DateTime.time as time
+import re
+import features.music.spotify as spotify
 
 # verification
 import functions.FaceRecognition as FaceID
@@ -20,9 +22,20 @@ while True:
             winsound.Beep(2500, 100)
             output_dict = STT.speech_to_text()
             print(output_dict)
-            if output_dict['transcription'] != '':
+            command = (output_dict['transcription']).lower()
+            if command != '':
                 print('Analysing...')
-                # --------features here------
+                # --------<features here>--------
+                if 'spotify' in command:
+                    spotify.spotify_sdk(command)
+                    print('Spotify SDK: Done')
+
+                #elif
+
+                else:
+                    print('Command not found')
+
+                # --------</features here>--------
 
         elif wake == False:
             WakeWord.reset()
