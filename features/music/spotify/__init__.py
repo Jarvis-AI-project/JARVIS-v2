@@ -59,22 +59,6 @@ def get_devices():
 #-----</get devceices on network>-----#
 
 
-#-----<volume>-----#
-#https://developer.spotify.com/console/put-volume/
-# def volume(volume_percent, device_name):
-#     try:
-#         sp = take_sp_oauth(scope='user-modify-playback-state')
-#         device_id = get_device_id(device_name)
-#         sp.volume(volume_percent, device_id)
-#         print('Volume of {} set to {}%'.format(device_name, get_devices()['devices']))
-#         return True
-#     except Exception as e:
-#         print('Spotify volume failed.')
-#         print(e)
-#         return False
-#-----</volume>-----#
-
-
 def spotify_sdk(command):
     try:
         output = azure_sdk.azure_query(command)
@@ -85,7 +69,6 @@ def spotify_sdk(command):
                 if device['is_active'] == True:
                     active_device = device['name']
                     print('Currently active device : ',active_device)
-                    # output = azure_sdk.azure_query(command)
                     if intent == 'Spotify.ChangeVolume':
                         for entity in output['entities']:
                             if entity['entity'] == 'Spotify.ChangeVolume.Value':
@@ -140,11 +123,28 @@ def spotify_sdk(command):
                                     print('Spotify.ChangeVolume.Key.Decrease failed')
                                     print(e)
                                     return False
+                            else:
+                                print('Unkown Entity for "Spotify.ChangeVolume" intent')
                     else:
                         print('User has no intent to change volume.')
                         return False
         
-        #elif
+        elif intent == 'Spotify.Volume.CurrentVolume':  # get volume of active spotify device
+            devices = get_devices()['devices']
+            for device in devices:
+                if device['is_active'] == True:
+                    active_device = device['name']
+                    print('Currently active device : ',active_device)
+                    try:
+                        current_volume = device['volume_percent']
+                        print('Volume of "{}" is {}%'.format(active_device, current_volume))
+                        return True
+                    except Exception as e:
+                        print('Spotify.Volume.CurrentVolume failed')
+                        print(e)
+                        return False
+
+        #elif intent == 'Spotify.PlayPause':
 
         else:
             print('Command not found.')
@@ -164,9 +164,3 @@ def spotify_sdk(command):
 
 if __name__ == '__main__':
     spotify_sdk('decrease spotify volume by 50')
-
-#-----<play>-----#
-# if __name__ == '__main__':
-#     volume(50, device_name='INSPIRON-5593')
-#     devices=get_devices()
-#     json(devices)
