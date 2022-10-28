@@ -4,6 +4,7 @@ import winsound
 import features.DateTime.time as time
 import re
 import features.music.spotify as spotify
+import features.music.spotify.azure_sdk as azure_sdk
 
 # verification
 import functions.FaceRecognition as FaceID
@@ -11,7 +12,17 @@ if FaceID.FaceID() == True:
     print("FaceID: Verified")
 elif FaceID.FaceID() == False:
     print("FaceID: Not Verified")
-    exit()
+    us = input('Do you want to verify by password? (y/n): ')
+    if us.lower() == 'y':
+        passw = input('Password: ')
+        if passw == '1234':
+            print('Password: Verified')
+        else:
+            print('Password: Not Verified')
+            exit()
+    else:
+        print('Password: Not Verified')
+        exit()
 
 
 while True:
@@ -25,11 +36,11 @@ while True:
             command = (output_dict['transcription']).lower()
             if command != '':
                 print('Analysing...')
+                user_intent = azure_sdk.azure_query(command, "JARVIS-MAIN", 'v0.1-dep1')
                 # --------<features here>--------
-                if 'spotify' in command:
+                if user_intent['intent'] == 'Jarvis.MusicControls':
                     spotify.spotify_sdk(command)
-                    print('Spotify SDK: Done')
-
+                
                 #elif
 
                 else:

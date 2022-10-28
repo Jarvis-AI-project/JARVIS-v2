@@ -2,14 +2,11 @@ import os
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.language.conversations import ConversationAnalysisClient
 
-
-clu_endpoint = "https://jarvis-resource.cognitiveservices.azure.com/"
-clu_key = "85a002f3b17a4e1b9b373b70c907c37f"
-project_name = "JARVIS-SPOTIFY"
-deployment_name = "v0.2-dep4"
+def azure_query(query, project_name, deployment_name):
+    clu_endpoint = "https://jarvis-resource.cognitiveservices.azure.com/"
+    clu_key = "85a002f3b17a4e1b9b373b70c907c37f"
 
 
-def azure_query(query):
     # analyze quey
     client = ConversationAnalysisClient(
         clu_endpoint, AzureKeyCredential(clu_key))
@@ -45,4 +42,5 @@ def azure_query(query):
         return out
 
 if __name__ == "__main__":
-    azure_query('change spotify volume to 50')
+    azure_query('increase volume to 20%', "JARVIS-SPOTIFY",'v0.1-dep1' )
+    azure_query('play some music', 'JARVIS-MAIN', 'v0.1-dep1')

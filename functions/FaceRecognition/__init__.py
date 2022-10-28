@@ -3,7 +3,7 @@ import time
 from threading import Thread
 from compreface import CompreFace
 import functions.FaceRecognition.get_host as get_host
-
+import os, sys
 
 def FaceID():
     #SERVER -LOCAL
@@ -36,8 +36,13 @@ def FaceID():
         while video_stream.isOpened():
             (_, frame_raw) = video_stream.read()
             frame = cv2.flip(frame_raw, 1)
+            try:
+                _, im_buf_arr = cv2.imencode(".jpg", frame)
+            except Exception as e:
+                print('OpenCV - Your Camera is being used by another program.')
+                print(e)
+                return False
 
-            _, im_buf_arr = cv2.imencode(".jpg", frame)
             byte_im = im_buf_arr.tobytes()
             data = recognition.recognize(byte_im)
             results = data.get('result')
@@ -65,6 +70,9 @@ def FaceID():
     except Exception as e:
         print('FaceID: Error')
         print(e)
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type,  fname,  exc_tb.tb_lineno)
         return False
 
 

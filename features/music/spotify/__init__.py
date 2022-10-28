@@ -61,99 +61,79 @@ def get_devices():
 
 def spotify_sdk(command):
     try:
-        output = azure_sdk.azure_query(command)
-        intent = output['intent']
-        if intent == 'Spotify.ChangeVolume':  # control volume of active spotify device
-            devices = get_devices()['devices']
-            for device in devices:
-                if device['is_active'] == True:
-                    active_device = device['name']
-                    print('Currently active device : ',active_device)
-                    if intent == 'Spotify.ChangeVolume':
-                        for entity in output['entities']:
-                            if entity['entity'] == 'Spotify.ChangeVolume.Value':
-                                volume = entity['entity_value']
-                                try:
-                                    volume = int(volume)
-                                    if volume > 100:
-                                        volume = 100
-                                    elif volume < 0:
-                                        volume = 0
-                                    print('Setting volume to {}% using Spotify.ChangeVolume.Value of devce "{}"'.format(volume, active_device))
-                                    sp_modify = take_sp_oauth(scope='user-modify-playback-state')
-                                    sp_modify.volume(volume, device['id'])
-                                    print('Volume of "{}" set to {}%'.format(active_device, volume))
-                                    return True
-                                except Exception as e:
-                                    print('Spotify.ChangeVolume.Value failed')
-                                    print(e)
-                                    return False
-                        for entity in output['entities']:
-                            if entity['entity'] == 'Spotify.ChangeVolume.Key.Increase':
-                                try:
-                                    current_volume = device['volume_percent']
-                                    volume = current_volume + 10
-                                    print('Increasing volume to {}% using Spotify.ChangeVolume.Key.Increase of devce "{}"'.format(volume, active_device))
-                                    sp_modify = take_sp_oauth(scope='user-modify-playback-state')
-                                    if volume > 100:
-                                        volume = 100
-                                    elif volume < 0:
-                                        volume = 0
-                                    sp_modify.volume(volume, device['id'])
-                                    print('Volume of "{}" increased to {}%'.format(active_device, volume))
-                                    return True
-                                except Exception as e:
-                                    print('Spotify.ChangeVolume.Key.Increase failed')
-                                    print(e)
-                                    return False
-                            elif entity['entity'] == 'Spotify.ChangeVolume.Key.Decrease':
-                                try:
-                                    current_volume = device['volume_percent']
-                                    volume = current_volume - 10
-                                    print('Decreasing volume to {}% using Spotify.ChangeVolume.Key.Decrease of devce "{}"'.format(volume, active_device))
-                                    sp_modify = take_sp_oauth(scope='user-modify-playback-state')
-                                    if volume > 100:
-                                        volume = 100
-                                    elif volume < 0:
-                                        volume = 0
-                                    sp_modify.volume(volume, device['id'])
-                                    print('Volume of "{}" decreased to {}%'.format(active_device, volume))
-                                    return True
-                                except Exception as e:
-                                    print('Spotify.ChangeVolume.Key.Decrease failed')
-                                    print(e)
-                                    return False
-                            else:
-                                print('Unkown Entity for "Spotify.ChangeVolume" intent')
-                    else:
-                        print('User has no intent to change volume.')
-                        return False
-        
-        elif intent == 'Spotify.Volume.CurrentVolume':  # get volume of active spotify device
-            devices = get_devices()['devices']
-            for device in devices:
-                if device['is_active'] == True:
-                    active_device = device['name']
-                    print('Currently active device : ',active_device)
-                    try:
-                        current_volume = device['volume_percent']
-                        print('Volume of "{}" is {}%'.format(active_device, current_volume))
-                        return True
-                    except Exception as e:
-                        print('Spotify.Volume.CurrentVolume failed')
-                        print(e)
-                        return False
+        print('Spotify SDK : STARTED')
 
-        #elif intent == 'Spotify.PlayPause':
+        spotify_intent = azure_sdk.azure_query(command, "JARVIS-SPOTIFY", 'v0.1-dep1')
+        # print(spotify_intent)
+
+        sp_read = take_sp_oauth(scope='user-read-playback-state')
+        for device in sp_read.devices()['devices']:
+            if device['is_active'] == True:
+                active_device_id = device['id']
+                print('Currently active device is "{}"'.format(device['name']))
+
+        if spotify_intent['intent'] == 'Spotify.ChangeVolume.ByValue':
+            for entity in spotify_intent['entities']:
+                if entity['entity'] == 'Spotify.ChangeVolume.Value':
+                    new_volume_value = int(entity['entity_value'].replace('%', ''))
+                    if new_volume_value > 100:
+                        new_volume_value = 100
+                    elif new_volume_value < 0:
+                        new_volume_value = 0
+                    print('Current volume of device "{}" is {}%'.format(device['name'], device['volume_percent']))
+                    sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+                    sp_modify.volume(new_volume_value, device_id=active_device_id)
+                    print('Volume of device "{}" changed to {}%'.format(device['name'], new_volume_value))
+            
+        elif spotify_intent['intent'] == 'Spotify.ChangeVolume.Decrease':
+            print('Current volume of device "{}" is {}%'.format(device['name'], device['volume_percent']))
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.volume(device['volume_percent'] - 10, device_id=active_device_id)
+            print('Volume of device "{}" changed to {}%'.format(device['name'], device['volume_percent'] - 10))
+        
+        elif spotify_intent['intent'] == 'Spotify.ChangeVolume.Increase':
+            print('Current volume of device "{}" is {}%'.format(device['name'], device['volume_percent']))
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.volume(device['volume_percent'] + 10, device_id=active_device_id)
+            print('Volume of device "{}" changed to {}%'.format(device['name'], device['volume_percent'] + 10))
+
+        elif spotify_intent['intent'] == 'Spotify.CurrentVolume':
+            print('Current volume of device "{}" is {}%'.format(device['name'], device['volume_percent']))
+        
+        elif spotify_intent['intent'] == 'Spotify.Track.Play':
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.start_playback(device_id=active_device_id)
+            print('Playback started on device "{}"'.format(device['name']))
+        
+        elif spotify_intent['intent'] == 'Spotify.Track.Pause-Stop':
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.pause_playback(device_id=active_device_id)
+            print('Playback paused on device "{}"'.format(device['name']))
+        
+        elif spotify_intent['intent'] == 'Spotify.NextTrack':
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.next_track(device_id=active_device_id)
+            print('Next track on device "{}"'.format(device['name']))
+
+        elif spotify_intent['intent'] == 'Spotify.PreviousTrack':
+            sp_modify = take_sp_oauth(scope='user-modify-playback-state')
+            sp_modify.previous_track(device_id=active_device_id)
+            print('Previous track on device "{}"'.format(device['name']))
+
+        elif spotify_intent['intent'] == 'Spotify.CurrentTrack':
+            sp_read = take_sp_oauth(scope='user-read-playback-state')
+            current_track = sp_read.current_user_playing_track()
+            print('Currently playing track "{}" by "{}" on device "{}"'.format(current_track['item']['name'], current_track['item']['artists'][0]['name'], device['name']))
+        
+        #elif
 
         else:
-            print('Command not found.')
+            print('This spotify intent is not supported yet.')
             return True
-        return True
 
 
     except Exception as e:
-        print('Spotify SDK failed.')
+        print('Spotify SDK : FAILED')
         print(e)
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
