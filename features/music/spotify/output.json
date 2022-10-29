@@ -1,0 +1,20 @@
+[
+  {
+    "id": "132d3ca77c1b42785c59f5df0437fc31aa8b5012",
+    "is_active": true,
+    "is_private_session": false,
+    "is_restricted": false,
+    "name": "Web Player (Chrome)",
+    "type": "Computer",
+    "volume_percent": 100
+  },
+  {
+    "id": "87c6dbf9c4c911daec020a96100bf2aa3376298f",
+    "is_active": false,
+    "is_private_session": false,
+    "is_restricted": false,
+    "name": "INSPIRON-5593",
+    "type": "Computer",
+    "volume_percent": 69
+  }
+]

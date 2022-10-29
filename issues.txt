@@ -1,1 +1,0 @@
-1. chime.wav does not play if we run main.py

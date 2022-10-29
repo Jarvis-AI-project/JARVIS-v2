@@ -1,0 +1,16 @@
+{
+    "LOCALHOST": {
+        "host": "http://localhost",
+        "port": 8000,
+        "api_key": "85b979c0-5b59-4112-a798-8092053041ca"},
+    "PC": {
+        "LOCAL" : {
+            "host": "http://192.168.1.7",
+            "port" : 8000
+        },
+        "REMOTE" : {
+            "host": "193.161.193.99",
+            "port" : 8000},
+        "api_key": "d742b38d-d659-404d-bde4-db41c67a50dd"
+    }
+}
