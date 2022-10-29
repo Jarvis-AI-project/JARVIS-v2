@@ -1,0 +1,16 @@
+[MASTER]
+ignore=cast_channel_pb2.py,authority_keys_pb2.py,logging_pb2.py
+reports=no
+
+disable=
+  format,
+  locally-disabled,
+  too-few-public-methods,
+  too-many-arguments,
+  too-many-instance-attributes,
+  too-many-public-methods,
+  duplicate-code,
+  too-many-nested-blocks,
+
+[EXCEPTIONS]
+overgeneral-exceptions=Exception,PyChromecastError
