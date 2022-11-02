@@ -1,0 +1,16 @@
+#:kivy 2.1
+MDFloatLayout:
+    BoxLayout:
+        orientation: "vertical"
+        
+
+        Label:
+            text_size: self.size
+            halign: "center"
+            valign: "middle"
+            text: "Click the Button To Close The App"
+            font_size: 32
+        Button:
+            font_size: 32
+            text: "Close App"
+            on_press: app.stop()
