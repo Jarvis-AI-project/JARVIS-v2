@@ -1,36 +1,32 @@
-# create a kivy window without title bar
-# https://stackoverflow.com/questions/31481041/create-a-kivy-window-without-title-bar
+#kivy screen with 16:9 aspect ratio
 
-
-#https://youtu.be/zVMwbarvDu8 -- window without tital bar
-
-from kivy.config import Config
-Config.set('graphics', 'fullscreen', 1)
-Config.set('graphics', 'width', '1920')
-Config.set('graphics', 'height', '1080')
-# Config.set('graphics', 'resizable', 1)
-Config.set('graphics', 'borderless', 0)
-# Config.set('graphics', 'position', 'custom')
-# Config.set('graphics', 'left', 0)
-# Config.set('graphics', 'top', 0)
-Config.set('graphics', 'show_cursor', 1)
-# Config.set('graphics', 'multisamples', 0)
-# Config.set('graphics', 'minimum_width', 0)
-# Config.set('graphics', 'minimum_height', 0)
-# Config.set('graphics', 'maximum_width', 0)
-
-
-from kivymd.app import MDApp
+from kivy.app import App
 from kivy.lang import Builder
-from kivy.core.window import Window
-class MainApp(MDApp):
+
+kv = '''
+BoxLayout:
+    orientation: 'vertical'
+    size: root.width, root.height
+
+    Label:
+        markup: True
+        font_size: 32
+        text:"This is [color=#][b]Bold[/b] [font=times]Text[/font]"
+
+    Label:
+        markup: True
+        font_size: 32
+        text:"This is [size=150][i]Italics[/i][/size] Text"
+
+    Button:
+        markup: True
+        font_size: 32
+        text: "[u]Click[/u] Me"'''
+
+
+class CircleApp(App):
     def build(self):
-        Window.borderless = True
-        # Window.size = (720, 1000)
+        return Builder.load_string(kv)
 
-        self.theme_cls.primary_palette = "Green"
-        self.theme_cls.primary_hue = "A700"
-        self.theme_cls.theme_style = "Dark"
-        return Builder.load_file('main.kv')
 
-MainApp().run()
+CircleApp().run()
