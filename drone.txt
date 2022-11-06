@@ -1,0 +1,12 @@
+1. hexa s550 5200/-
+2. motor 4800/-
+3. radio pixhalk 2.4.8 21000/-
+4. esc 35-40A 6000/-
+5. battery 10Ah 11000/-
+#6. radio at10 16000/- with receiver
+6. flysky 5500/- with receiver
+#7. rasberripi 8000/-
+9. telemetry 10000/-
+#10. pycamera
+
+
